@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2">
+
+      <%= form_tag movies_path, method: :get do %>
+        <%= text_field_tag :query,
+          params[:query],
+          class: "form-control",
+          placeholder: "Find a movie -OR- a Director -OR- a Tv Show"
+        %>
+        <%= submit_tag "Search", class: "btn btn-primary" %>
+      <% end %>
+      <div id="movies">
+
+      <% if @movies %>
+        <% @movies.each do |movie| %>
+          <h4><%= movie.title %></h4>
+          <p><%= movie.syllabus %></p>
+        <% end %>
+      <% else %>
+        <% @results.each do |type, outputs| %>
+          <h3><%= type %></h3>
+          <% outputs.each do |output| %>
+            <h4 style="color: purple"><%= output.searchable.title %></h4>
+            <p><%= output.searchable.syllabus %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
